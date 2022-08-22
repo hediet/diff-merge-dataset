@@ -1,0 +1,23 @@
+<<<<<<< HEAD
+error TS1204: Cannot compile modules into 'amd', 'commonjs' or 'umd' when targeting 'ES6' or higher.
+
+
+!!! error TS1204: Cannot compile modules into 'amd', 'commonjs' or 'umd' when targeting 'ES6' or higher.
+=======
+error TS1204: Cannot compile external modules into 'commonjs', 'amd', 'system' or 'umd' when targeting 'ES6' or higher.
+
+
+!!! error TS1204: Cannot compile external modules into 'commonjs', 'amd', 'system' or 'umd' when targeting 'ES6' or higher.
+>>>>>>> cde3ed0e265cdbfff2ad5c5684b0ab803eb971b4
+==== tests/cases/compiler/es6ModuleWithModuleGenTargetCommonjs.ts (0 errors) ====
+    export class A
+    {
+        constructor ()
+        {
+        }
+    
+        public B()
+        {
+            return 42;
+        }
+    }

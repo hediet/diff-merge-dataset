@@ -1,0 +1,48 @@
+tests/cases/conformance/types/typeRelationships/assignmentCompatibility/assignmentCompatBetweenTupleAndArray.ts(17,1): error TS2322: Type '[number, string]' is not assignable to type 'number[]':
+  Types of property 'pop' are incompatible:
+<<<<<<< HEAD
+    Type '() => string | number' is not assignable to type '() => number':
+      Type 'string | number' is not assignable to type 'number':
+        Type 'string' is not assignable to type 'number'.
+=======
+    Type '() => {}' is not assignable to type '() => number':
+      Type '{}' is not assignable to type 'number'.
+>>>>>>> bdac6ca89546e992d61d66460be8a57d57e92326
+tests/cases/conformance/types/typeRelationships/assignmentCompatibility/assignmentCompatBetweenTupleAndArray.ts(18,1): error TS2322: Type '{}[]' is not assignable to type '[{}]':
+  Property '0' is missing in type '{}[]'.
+
+
+==== tests/cases/conformance/types/typeRelationships/assignmentCompatibility/assignmentCompatBetweenTupleAndArray.ts (2 errors) ====
+    var numStrTuple: [number, string];
+    var numNumTuple: [number, number];
+    var numEmptyObjTuple: [number, {}];
+    var emptyObjTuple: [{}];
+    
+    var numArray: number[];
+    var emptyObjArray: {}[];
+    
+    // no error
+    numArray = numNumTuple;
+    emptyObjArray = emptyObjTuple;
+    emptyObjArray = numStrTuple;
+    emptyObjArray = numNumTuple;
+    emptyObjArray = numEmptyObjTuple;
+    
+    // error
+    numArray = numStrTuple;
+    ~~~~~~~~
+!!! error TS2322: Type '[number, string]' is not assignable to type 'number[]':
+!!! error TS2322:   Types of property 'pop' are incompatible:
+<<<<<<< HEAD
+!!! error TS2322:     Type '() => string | number' is not assignable to type '() => number':
+!!! error TS2322:       Type 'string | number' is not assignable to type 'number':
+!!! error TS2322:         Type 'string' is not assignable to type 'number'.
+=======
+!!! error TS2322:     Type '() => {}' is not assignable to type '() => number':
+!!! error TS2322:       Type '{}' is not assignable to type 'number'.
+>>>>>>> bdac6ca89546e992d61d66460be8a57d57e92326
+    emptyObjTuple = emptyObjArray;
+    ~~~~~~~~~~~~~
+!!! error TS2322: Type '{}[]' is not assignable to type '[{}]':
+!!! error TS2322:   Property '0' is missing in type '{}[]'.
+    

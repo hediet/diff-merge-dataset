@@ -1,0 +1,9 @@
+built
+doc
+scripts
+src
+tests
+Jakefile.js
+.travis.yml
+.settings/
+.vscode/

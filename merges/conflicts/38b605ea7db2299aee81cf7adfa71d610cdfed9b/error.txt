@@ -1,0 +1,2 @@
+fatal: path 'tests/baselines/reference/nodeResolution7.errors.txt' is in the index, but not at stage 1
+hint: Did you mean ':2:tests/baselines/reference/nodeResolution7.errors.txt'?

@@ -1,0 +1,2 @@
+fatal: path 'scripts/produceLKG.ts' is in the index, but not at stage 1
+hint: Did you mean ':2:scripts/produceLKG.ts'?

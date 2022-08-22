@@ -1,0 +1,13 @@
+built
+doc
+scripts
+src
+tests
+Jakefile.js
+.travis.yml
+.settings/
+<<<<<<< HEAD
+.vscode/
+=======
+.vscode/
+>>>>>>> 20eaa22b02725f6e12cceda6945e155ccfafa675

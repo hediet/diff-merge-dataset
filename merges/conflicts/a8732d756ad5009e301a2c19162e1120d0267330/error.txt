@@ -1,0 +1,2 @@
+fatal: path 'tests/cases/compiler/unionTypeWithRecursiveSubtypeReduction2.ts' is in the index, but not at stage 1
+hint: Did you mean ':2:tests/cases/compiler/unionTypeWithRecursiveSubtypeReduction2.ts'?

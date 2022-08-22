@@ -1,0 +1,2 @@
+fatal: path 'tests/baselines/reference/iterableArrayPattern27.types' is in the index, but not at stage 2
+hint: Did you mean ':1:tests/baselines/reference/iterableArrayPattern27.types'?

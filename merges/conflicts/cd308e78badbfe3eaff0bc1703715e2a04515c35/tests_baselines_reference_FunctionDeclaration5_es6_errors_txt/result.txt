@@ -1,0 +1,29 @@
+<<<<<<< HEAD
+tests/cases/conformance/es6/functionDeclarations/FunctionDeclaration5_es6.ts(1,14): error TS1138: Parameter declaration expected.
+tests/cases/conformance/es6/functionDeclarations/FunctionDeclaration5_es6.ts(1,19): error TS1005: ';' expected.
+=======
+tests/cases/conformance/es6/functionDeclarations/FunctionDeclaration5_es6.ts(1,10): error TS2391: Function implementation is missing or not immediately following the declaration.
+tests/cases/conformance/es6/functionDeclarations/FunctionDeclaration5_es6.ts(1,14): error TS1138: Parameter declaration expected.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+tests/cases/conformance/es6/functionDeclarations/FunctionDeclaration5_es6.ts(1,14): error TS2304: Cannot find name 'yield'.
+tests/cases/conformance/es6/functionDeclarations/FunctionDeclaration5_es6.ts(1,19): error TS1005: ';' expected.
+
+
+==== tests/cases/conformance/es6/functionDeclarations/FunctionDeclaration5_es6.ts (3 errors) ====
+    function*foo(yield) {
+<<<<<<< HEAD
+                 ~~~~~
+!!! error TS1138: Parameter declaration expected.
+                      ~
+!!! error TS1005: ';' expected.
+=======
+             ~~~
+!!! error TS2391: Function implementation is missing or not immediately following the declaration.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+                 ~~~~~
+!!! error TS1138: Parameter declaration expected.
+                 ~~~~~
+!!! error TS2304: Cannot find name 'yield'.
+                      ~
+!!! error TS1005: ';' expected.
+    }

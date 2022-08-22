@@ -1,0 +1,17 @@
+<<<<<<< HEAD
+==== tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserEqualsGreaterThanAfterFunction1.ts (1 errors) ====
+    function =>
+             ~~
+!!! Identifier expected.
+=======
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserEqualsGreaterThanAfterFunction1.ts(1,10): error TS1003: Identifier expected.
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserEqualsGreaterThanAfterFunction1.ts(1,9): error TS2391: Function implementation is missing or not immediately following the declaration.
+
+
+==== tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserEqualsGreaterThanAfterFunction1.ts (2 errors) ====
+    function =>
+             ~~
+!!! error TS1003: Identifier expected.
+            
+!!! error TS2391: Function implementation is missing or not immediately following the declaration.
+>>>>>>> 80bab05d07791cc1ca32bf62f5986da3e480c865

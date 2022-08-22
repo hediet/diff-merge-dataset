@@ -1,0 +1,2 @@
+fatal: path 'tests/baselines/reference/tsxElementResolution9.errors.txt' is in the index, but not at stage 2
+hint: Did you mean ':1:tests/baselines/reference/tsxElementResolution9.errors.txt'?

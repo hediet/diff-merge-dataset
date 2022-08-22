@@ -1,0 +1,2 @@
+fatal: path 'tests/baselines/reference/es5ExportDefaultClassDeclaration3.types' is in the index, but not at stage 3
+hint: Did you mean ':1:tests/baselines/reference/es5ExportDefaultClassDeclaration3.types'?

@@ -1,0 +1,2 @@
+fatal: path 'bin/typescript_internal.d.ts' is in the index, but not at stage 1
+hint: Did you mean ':2:bin/typescript_internal.d.ts'?

@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+error TS1204: Cannot compile modules into 'amd', 'commonjs' or 'umd' when targeting 'ES6' or higher.
+
+
+!!! error TS1204: Cannot compile modules into 'amd', 'commonjs' or 'umd' when targeting 'ES6' or higher.
+=======
+error TS1204: Cannot compile external modules into 'commonjs', 'amd', 'system' or 'umd' when targeting 'ES6' or higher.
+
+
+!!! error TS1204: Cannot compile external modules into 'commonjs', 'amd', 'system' or 'umd' when targeting 'ES6' or higher.
+>>>>>>> cde3ed0e265cdbfff2ad5c5684b0ab803eb971b4
+==== tests/cases/compiler/es6ImportNameSpaceImport_0.ts (0 errors) ====
+    
+    export var a = 10;
+    
+==== tests/cases/compiler/es6ImportNameSpaceImport_1.ts (0 errors) ====
+    import * as nameSpaceBinding from "es6ImportNameSpaceImport_0";
+    var x = nameSpaceBinding.a;
+    import * as nameSpaceBinding2 from "es6ImportNameSpaceImport_0"; // elide this
+    

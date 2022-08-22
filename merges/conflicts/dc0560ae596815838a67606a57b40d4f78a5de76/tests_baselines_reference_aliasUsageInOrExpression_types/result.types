@@ -1,0 +1,95 @@
+=== tests/cases/compiler/aliasUsageInOrExpression_main.ts ===
+import Backbone = require("aliasUsageInOrExpression_backbone");
+>Backbone : typeof Backbone
+
+import moduleA = require("aliasUsageInOrExpression_moduleA");
+>moduleA : typeof moduleA
+
+interface IHasVisualizationModel {
+>IHasVisualizationModel : IHasVisualizationModel
+
+    VisualizationModel: typeof Backbone.Model;
+>VisualizationModel : typeof Backbone.Model
+>Backbone : typeof Backbone
+>Model : typeof Backbone.Model
+}
+var i: IHasVisualizationModel;
+>i : IHasVisualizationModel
+>IHasVisualizationModel : IHasVisualizationModel
+
+var d1 = i || moduleA;
+>d1 : IHasVisualizationModel
+>i || moduleA : IHasVisualizationModel
+>i : IHasVisualizationModel
+>moduleA : typeof moduleA
+
+var d2: IHasVisualizationModel = i || moduleA;
+>d2 : IHasVisualizationModel
+>IHasVisualizationModel : IHasVisualizationModel
+>i || moduleA : IHasVisualizationModel
+>i : IHasVisualizationModel
+>moduleA : typeof moduleA
+
+var d2: IHasVisualizationModel = moduleA || i;
+>d2 : IHasVisualizationModel
+>IHasVisualizationModel : IHasVisualizationModel
+>moduleA || i : IHasVisualizationModel
+>moduleA : typeof moduleA
+>i : IHasVisualizationModel
+
+var e: { x: IHasVisualizationModel } = <{ x: IHasVisualizationModel }>null || { x: moduleA };
+>e : { x: IHasVisualizationModel; }
+>x : IHasVisualizationModel
+>IHasVisualizationModel : IHasVisualizationModel
+><{ x: IHasVisualizationModel }>null || { x: moduleA } : { x: IHasVisualizationModel; }
+><{ x: IHasVisualizationModel }>null : { x: IHasVisualizationModel; }
+>x : IHasVisualizationModel
+>IHasVisualizationModel : IHasVisualizationModel
+<<<<<<< HEAD
+>{ x: moduleA } : { x: typeof "tests/cases/compiler/aliasUsageInOrExpression_moduleA"; }
+>x : typeof "tests/cases/compiler/aliasUsageInOrExpression_moduleA"
+>moduleA : typeof "tests/cases/compiler/aliasUsageInOrExpression_moduleA"
+=======
+>{ x: moduleA } : { x: typeof moduleA; }
+>x : typeof moduleA
+>moduleA : typeof moduleA
+>>>>>>> 4fbc0037c6d7a4eb6eac4c1a15e242664287014a
+
+var f: { x: IHasVisualizationModel } = <{ x: IHasVisualizationModel }>null ? { x: moduleA } : null;
+>f : { x: IHasVisualizationModel; }
+>x : IHasVisualizationModel
+>IHasVisualizationModel : IHasVisualizationModel
+><{ x: IHasVisualizationModel }>null ? { x: moduleA } : null : { x: IHasVisualizationModel; }
+><{ x: IHasVisualizationModel }>null : { x: IHasVisualizationModel; }
+>x : IHasVisualizationModel
+>IHasVisualizationModel : IHasVisualizationModel
+<<<<<<< HEAD
+>{ x: moduleA } : { x: typeof "tests/cases/compiler/aliasUsageInOrExpression_moduleA"; }
+>x : typeof "tests/cases/compiler/aliasUsageInOrExpression_moduleA"
+>moduleA : typeof "tests/cases/compiler/aliasUsageInOrExpression_moduleA"
+=======
+>{ x: moduleA } : { x: typeof moduleA; }
+>x : typeof moduleA
+>moduleA : typeof moduleA
+>>>>>>> 4fbc0037c6d7a4eb6eac4c1a15e242664287014a
+
+=== tests/cases/compiler/aliasUsageInOrExpression_backbone.ts ===
+export class Model {
+>Model : Model
+
+    public someData: string;
+>someData : string
+}
+
+=== tests/cases/compiler/aliasUsageInOrExpression_moduleA.ts ===
+import Backbone = require("aliasUsageInOrExpression_backbone");
+>Backbone : typeof Backbone
+
+export class VisualizationModel extends Backbone.Model {
+>VisualizationModel : VisualizationModel
+>Backbone : unknown
+>Model : Backbone.Model
+
+    // interesting stuff here
+}
+

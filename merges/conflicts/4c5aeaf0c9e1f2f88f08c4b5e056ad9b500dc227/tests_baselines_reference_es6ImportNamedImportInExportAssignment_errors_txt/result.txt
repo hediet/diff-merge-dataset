@@ -1,0 +1,22 @@
+<<<<<<< HEAD
+error TS1204: Cannot compile modules into 'amd', 'commonjs' or 'umd' when targeting 'ES6' or higher.
+tests/cases/compiler/es6ImportNamedImportInExportAssignment_1.ts(2,1): error TS1203: Export assignment cannot be used when targeting ECMAScript 6 or higher. Consider using 'export default' instead.
+
+
+!!! error TS1204: Cannot compile modules into 'amd', 'commonjs' or 'umd' when targeting 'ES6' or higher.
+=======
+error TS1204: Cannot compile external modules into 'commonjs', 'amd', 'system' or 'umd' when targeting 'ES6' or higher.
+tests/cases/compiler/es6ImportNamedImportInExportAssignment_1.ts(2,1): error TS1203: Export assignment cannot be used when targeting ECMAScript 6 or higher. Consider using 'export default' instead.
+
+
+!!! error TS1204: Cannot compile external modules into 'commonjs', 'amd', 'system' or 'umd' when targeting 'ES6' or higher.
+>>>>>>> cde3ed0e265cdbfff2ad5c5684b0ab803eb971b4
+==== tests/cases/compiler/es6ImportNamedImportInExportAssignment_0.ts (0 errors) ====
+    
+    export var a = 10;
+    
+==== tests/cases/compiler/es6ImportNamedImportInExportAssignment_1.ts (1 errors) ====
+    import { a } from "es6ImportNamedImportInExportAssignment_0";
+    export = a;
+    ~~~~~~~~~~~
+!!! error TS1203: Export assignment cannot be used when targeting ECMAScript 6 or higher. Consider using 'export default' instead.

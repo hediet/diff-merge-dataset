@@ -1,0 +1,28 @@
+<<<<<<< HEAD
+tests/cases/conformance/parser/ecmascript6/ComputedPropertyNames/parserComputedPropertyName5.ts(1,11): error TS1184: Modifiers cannot appear here.
+=======
+tests/cases/conformance/parser/ecmascript6/ComputedPropertyNames/parserComputedPropertyName5.ts(1,18): error TS1005: ':' expected.
+tests/cases/conformance/parser/ecmascript6/ComputedPropertyNames/parserComputedPropertyName5.ts(1,18): error TS2304: Cannot find name 'get'.
+tests/cases/conformance/parser/ecmascript6/ComputedPropertyNames/parserComputedPropertyName5.ts(1,23): error TS2304: Cannot find name 'e'.
+tests/cases/conformance/parser/ecmascript6/ComputedPropertyNames/parserComputedPropertyName5.ts(1,28): error TS1005: ',' expected.
+tests/cases/conformance/parser/ecmascript6/ComputedPropertyNames/parserComputedPropertyName5.ts(1,32): error TS1128: Declaration or statement expected.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+
+
+==== tests/cases/conformance/parser/ecmascript6/ComputedPropertyNames/parserComputedPropertyName5.ts (1 errors) ====
+    var v = { public get [e]() { } };
+<<<<<<< HEAD
+              ~~~~~~
+!!! error TS1184: Modifiers cannot appear here.
+=======
+                     ~~~
+!!! error TS1005: ':' expected.
+                     ~~~
+!!! error TS2304: Cannot find name 'get'.
+                          ~
+!!! error TS2304: Cannot find name 'e'.
+                               ~
+!!! error TS1005: ',' expected.
+                                   ~
+!!! error TS1128: Declaration or statement expected.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077

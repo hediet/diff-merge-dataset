@@ -1,0 +1,21 @@
+<<<<<<< HEAD
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserModifierOnStatementInBlock2.ts(2,4): error TS1184: Modifiers cannot appear here.
+=======
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserModifierOnStatementInBlock2.ts(2,4): error TS2304: Cannot find name 'declare'.
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserModifierOnStatementInBlock2.ts(2,12): error TS1005: ';' expected.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+
+
+==== tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserModifierOnStatementInBlock2.ts (1 errors) ====
+    {
+       declare var x = this;
+       ~~~~~~~
+<<<<<<< HEAD
+!!! error TS1184: Modifiers cannot appear here.
+=======
+!!! error TS2304: Cannot find name 'declare'.
+               ~~~
+!!! error TS1005: ';' expected.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+    }
+    

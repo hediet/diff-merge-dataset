@@ -1,0 +1,6 @@
+//// [properties.js.map]
+<<<<<<< HEAD
+{"version":3,"file":"properties.js","sourceRoot":"","sources":["properties.ts"],"names":["MyClass","MyClass.constructor","MyClass.Count"],"mappings":"AACA;IAAAA;IAWAC,CAACA;IATGD,sBAAWA,0BAAKA;aAAhBA;YAEIE,MAAMA,CAACA,EAAEA,CAACA;QACdA,CAACA;aAEDF,UAAiBA,KAAaA;YAE1BA,EAAEA;QACNA,CAACA;;;OALAA;IAMLA,cAACA;AAADA,CAACA,AAXD,IAWC"}
+=======
+{"version":3,"file":"properties.js","sourceRoot":"","sources":["properties.ts"],"names":["MyClass","MyClass.constructor","MyClass.Count"],"mappings":"AACA,IAAM,OAAO;IAAbA,SAAMA,OAAOA;IAWbC,CAACA;IATGD,sBAAWA,0BAAKA;aAAhBA;YAEIE,MAAMA,CAACA,EAAEA,CAACA;QACdA,CAACA;aAEDF,UAAiBA,KAAaA;YAE1BE,EAAEA;QACNA,CAACA;;;OALAF;IAMLA,cAACA;AAADA,CAACA,AAXD,IAWC"}
+>>>>>>> e225999ac41c856ac875953be82566da239aa479

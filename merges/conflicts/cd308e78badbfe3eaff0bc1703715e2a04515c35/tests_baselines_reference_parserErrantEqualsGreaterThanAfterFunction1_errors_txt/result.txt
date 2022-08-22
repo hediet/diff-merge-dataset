@@ -1,0 +1,16 @@
+<<<<<<< HEAD
+=======
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction1.ts(1,10): error TS2391: Function implementation is missing or not immediately following the declaration.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction1.ts(1,14): error TS1144: '{' or ';' expected.
+
+
+==== tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction1.ts (1 errors) ====
+    function f() => 4;
+<<<<<<< HEAD
+=======
+             ~
+!!! error TS2391: Function implementation is missing or not immediately following the declaration.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+                 ~~
+!!! error TS1144: '{' or ';' expected.

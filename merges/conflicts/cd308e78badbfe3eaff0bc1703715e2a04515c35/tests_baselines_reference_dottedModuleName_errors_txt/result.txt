@@ -1,0 +1,37 @@
+<<<<<<< HEAD
+=======
+tests/cases/compiler/dottedModuleName.ts(3,18): error TS2391: Function implementation is missing or not immediately following the declaration.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+tests/cases/compiler/dottedModuleName.ts(3,29): error TS1144: '{' or ';' expected.
+tests/cases/compiler/dottedModuleName.ts(3,33): error TS2304: Cannot find name 'x'.
+
+
+==== tests/cases/compiler/dottedModuleName.ts (2 errors) ====
+    module M {
+        export module N {
+    	export function f(x:number)=>2*x;
+<<<<<<< HEAD
+=======
+    	                ~
+!!! error TS2391: Function implementation is missing or not immediately following the declaration.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+    	                           ~~
+!!! error TS1144: '{' or ';' expected.
+    	                               ~
+!!! error TS2304: Cannot find name 'x'.
+    	export module X.Y.Z {
+    	    export var v2=f(v);
+    	}
+        }
+    }
+    
+    
+    
+    module M.N {
+        export module X {
+    	export module Y.Z {
+    	    export var v=f(10);
+    	}
+        }
+    }
+    

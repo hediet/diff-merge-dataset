@@ -1,0 +1,2 @@
+fatal: path 'tests/cases/unittests/tsserverProjectSystem.ts' is in the index, but not at stage 1
+hint: Did you mean ':2:tests/cases/unittests/tsserverProjectSystem.ts'?

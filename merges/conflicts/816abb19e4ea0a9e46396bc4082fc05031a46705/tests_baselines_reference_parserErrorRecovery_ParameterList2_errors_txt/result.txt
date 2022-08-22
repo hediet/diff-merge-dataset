@@ -1,0 +1,21 @@
+<<<<<<< HEAD
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/ParameterLists/parserErrorRecovery_ParameterList2.ts(2,2): error TS1005: ')' expected.
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/ParameterLists/parserErrorRecovery_ParameterList2.ts(1,10): error TS2391: Function implementation is missing or not immediately following the declaration.
+=======
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/ParameterLists/parserErrorRecovery_ParameterList2.ts(1,15): error TS1005: ')' expected.
+>>>>>>> c075fe19170be128aa6e49641e6730eca8c4cd5c
+
+
+==== tests/cases/conformance/parser/ecmascript5/ErrorRecovery/ParameterLists/parserErrorRecovery_ParameterList2.ts (1 errors) ====
+    function f(a, {
+<<<<<<< HEAD
+             ~
+!!! error TS2391: Function implementation is missing or not immediately following the declaration.
+    }
+     
+!!! error TS1005: ')' expected.
+=======
+                  ~
+!!! error TS1005: ')' expected.
+    }
+>>>>>>> c075fe19170be128aa6e49641e6730eca8c4cd5c

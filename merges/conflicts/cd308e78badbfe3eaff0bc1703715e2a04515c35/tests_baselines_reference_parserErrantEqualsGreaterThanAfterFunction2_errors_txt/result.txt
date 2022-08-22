@@ -1,0 +1,25 @@
+<<<<<<< HEAD
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction2.ts(1,18): error TS1144: '{' or ';' expected.
+=======
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction2.ts(1,10): error TS2391: Function implementation is missing or not immediately following the declaration.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction2.ts(1,15): error TS2304: Cannot find name 'A'.
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction2.ts(1,18): error TS1144: '{' or ';' expected.
+tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction2.ts(1,21): error TS2304: Cannot find name 'p'.
+
+
+==== tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserErrantEqualsGreaterThanAfterFunction2.ts (3 errors) ====
+    function f(p: A) => p;
+<<<<<<< HEAD
+                     ~~
+!!! error TS1144: '{' or ';' expected.
+=======
+             ~
+!!! error TS2391: Function implementation is missing or not immediately following the declaration.
+>>>>>>> 1776734e6694539018b235c5c6571317eabae077
+                  ~
+!!! error TS2304: Cannot find name 'A'.
+                     ~~
+!!! error TS1144: '{' or ';' expected.
+                        ~
+!!! error TS2304: Cannot find name 'p'.

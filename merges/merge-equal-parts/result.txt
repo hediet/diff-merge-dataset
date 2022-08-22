@@ -1,0 +1,22 @@
+1
+change1
+change2
+<<<<<<< .\input1.txt
+input1OnlyChange1
+=======
+input2OnlyChange1
+>>>>>>> .\input2.txt
+change3
+change4
+change5
+change6
+<<<<<<< .\input1.txt
+input1OnlyChange2
+=======
+input2OnlyChange2
+>>>>>>> .\input2.txt
+change7
+change8
+change9
+2
+3

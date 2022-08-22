@@ -1,0 +1,2 @@
+fatal: path 'src/services/text.ts' is in the index, but not at stage 3
+hint: Did you mean ':1:src/services/text.ts'?

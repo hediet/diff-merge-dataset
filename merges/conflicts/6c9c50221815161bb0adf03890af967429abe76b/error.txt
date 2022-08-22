@@ -1,0 +1,2 @@
+fatal: path 'src/services/compiler/precompile.ts' is in the index, but not at stage 2
+hint: Did you mean ':1:src/services/compiler/precompile.ts'?
