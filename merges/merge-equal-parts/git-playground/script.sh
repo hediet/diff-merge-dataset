@@ -1,4 +1,4 @@
-rm -Force -r ./repo -ErrorAction Ignore
+rm -rf ./repo
 mkdir ./repo
 cd ./repo
 git init
