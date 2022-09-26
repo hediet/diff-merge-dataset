@@ -77,7 +77,7 @@ export class StatusbarEntryItem extends Disposable {
 		this.update(entry);
 	}
 
-	update(entry: IStatusbarEntry): void {
+	update(e: IEntry): void {
 
 		// Update: Progress
 		this.label.showProgress = entry.showProgress ?? false;
@@ -89,6 +89,7 @@ export class StatusbarEntryItem extends Disposable {
 			if (entry.text) {
 				show(this.labelContainer);
 			} else {
+				//some
 				hide(this.labelContainer);
 			}
 		}

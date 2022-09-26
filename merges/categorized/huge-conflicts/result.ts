@@ -41,7 +41,6 @@ export class StatusbarEntryItem extends Disposable {
 	private hover: ICustomHover | undefined = undefined;
 
 	readonly labelContainer: HTMLElement;
-	readonly beakContainer: HTMLElement;
 
 	get name(): string {
 		return assertIsDefined(this.entry).name;
@@ -70,18 +69,9 @@ export class StatusbarEntryItem extends Disposable {
 
 		// Label (with support for progress)
 		this.label = new StatusBarCodiconLabel(this.labelContainer);
-		this.container.appendChild(this.labelContainer);
-
-		// Beak Container
-		this.beakContainer = document.createElement('div');
-<<<<<<< .\input1.ts
-		this.beakContainer.className = 'status-bar-item-beak-container';
-=======
-		this.beakContainer.className = 'status-bar-beak-container';
 
 		// Add to parent
->>>>>>> .\input2.ts
-		this.container.appendChild(this.beakContainer);
+		this.container.appendChild(this.labelContainer);
 
 		this.update(entry);
 	}
@@ -304,3 +294,25 @@ class StatusBarCodiconLabel extends SimpleIconLabel {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

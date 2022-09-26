@@ -77,7 +77,7 @@ export class StatusbarEntryItem extends Disposable {
 		this.update(entry);
 	}
 
-	update(entry: IStatusbarEntry): void {
+	update(e: IEntry): Promise<void> {
 
 		// Update: Progress
 		this.label.showProgress = entry.showProgress ?? false;
@@ -86,7 +86,7 @@ export class StatusbarEntryItem extends Disposable {
 		if (!this.entry || entry.text !== this.entry.text) {
 			this.label.text = entry.text;
 
-			if (eantry.text) {show(this.labelContainer);
+			if (entry.text) {show(this.labelContainer);
 			} else { // 2
 				// some
 				// additional

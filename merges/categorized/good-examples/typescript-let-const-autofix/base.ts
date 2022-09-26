@@ -211,7 +211,6 @@ namespace ts {
 
         let subtypeRelation: Map<RelationComparisonResult> = {};
         let assignableRelation: Map<RelationComparisonResult> = {};
-        let comparableRelation: Map<RelationComparisonResult> = {};
         let identityRelation: Map<RelationComparisonResult> = {};
 
         // This is for caching the result of getSymbolDisplayBuilder. Do not access directly.
@@ -4739,28 +4738,12 @@ namespace ts {
             return checkTypeAssignableTo(source, target, /*errorNode*/ undefined);
         }
 
-        /**
-         * This is *not* a bi-directional relationship.
-         * If one needs to check both directions for comparability, use a second call to this function or 'checkTypeComparableTo'.
-         */
-        function isTypeComparableTo(source: Type, target: Type): boolean {
-            return checkTypeComparableTo(source, target, /*errorNode*/ undefined);
-        }
-
         function checkTypeSubtypeOf(source: Type, target: Type, errorNode: Node, headMessage?: DiagnosticMessage, containingMessageChain?: DiagnosticMessageChain): boolean {
             return checkTypeRelatedTo(source, target, subtypeRelation, errorNode, headMessage, containingMessageChain);
         }
 
         function checkTypeAssignableTo(source: Type, target: Type, errorNode: Node, headMessage?: DiagnosticMessage, containingMessageChain?: DiagnosticMessageChain): boolean {
             return checkTypeRelatedTo(source, target, assignableRelation, errorNode, headMessage, containingMessageChain);
-        }
-
-        /**
-         * This is *not* a bi-directional relationship.
-         * If one needs to check both directions for comparability, use a second call to this function or 'isTypeComparableTo'.
-         */
-        function checkTypeComparableTo(source: Type, target: Type, errorNode: Node, headMessage?: DiagnosticMessage, containingMessageChain?: DiagnosticMessageChain): boolean {
-            return checkTypeRelatedTo(source, target, comparableRelation, errorNode, headMessage, containingMessageChain);
         }
 
         function isSignatureAssignableTo(source: Signature, target: Signature): boolean {
@@ -4773,7 +4756,7 @@ namespace ts {
          * Checks if 'source' is related to 'target' (e.g.: is a assignable to).
          * @param source The left-hand-side of the relation.
          * @param target The right-hand-side of the relation.
-         * @param relation The relation considered. One of 'identityRelation', 'assignableRelation', 'subTypeRelation', or 'comparableRelation'.
+         * @param relation The relation considered. One of 'identityRelation', 'assignableRelation', or 'subTypeRelation'.
          * Used as both to determine which checks are performed and as a cache of previously computed results.
          * @param errorNode The suggested node upon which all errors will be reported, if defined. This may or may not be the actual node used.
          * @param headMessage If the error chain should be prepended by a head message, then headMessage will be used.
@@ -4798,7 +4781,6 @@ namespace ts {
 
             Debug.assert(relation !== identityRelation || !errorNode, "no error reporting in identity checking");
 
-            const isAssignableOrComparableRelation = relation === assignableRelation || relation === comparableRelation;
             let result = isRelatedTo(source, target, errorNode !== undefined, headMessage);
             if (overflow) {
                 error(errorNode, Diagnostics.Excessive_stack_depth_comparing_types_0_and_1, typeToString(source), typeToString(target));
@@ -4832,14 +4814,7 @@ namespace ts {
                     sourceType = typeToString(source, /*enclosingDeclaration*/ undefined, TypeFormatFlags.UseFullyQualifiedType);
                     targetType = typeToString(target, /*enclosingDeclaration*/ undefined, TypeFormatFlags.UseFullyQualifiedType);
                 }
-
-                if (!message) {
-                    message = relation === comparableRelation ?
-                        Diagnostics.Type_0_is_not_comparable_to_type_1 :
-                        Diagnostics.Type_0_is_not_assignable_to_type_1;
-                }
-
-                reportError(message, sourceType, targetType);
+                reportError(message || Diagnostics.Type_0_is_not_assignable_to_type_1, sourceType, targetType);
             }
 
             // Compare two types and return
@@ -4859,7 +4834,7 @@ namespace ts {
                 if (source === nullType && target !== undefinedType) return Ternary.True;
                 if (source.flags & TypeFlags.Enum && target === numberType) return Ternary.True;
                 if (source.flags & TypeFlags.StringLiteral && target === stringType) return Ternary.True;
-                if (isAssignableOrComparableRelation) {
+                if (relation === assignableRelation) {
                     if (isTypeAny(source)) return Ternary.True;
                     if (source === numberType && target.flags & TypeFlags.Enum) return Ternary.True;
                 }
@@ -4882,39 +4857,29 @@ namespace ts {
 
                 let saveErrorInfo = errorInfo;
 
-                // Note that these checks are specifically ordered to produce correct results.
+                // Note that the "each" checks must precede the "some" checks to produce the correct results
                 if (source.flags & TypeFlags.Union) {
-                    if (relation === comparableRelation) {
-                        result = someTypeRelatedToType(source as UnionType, target, reportErrors);
-                    }
-                    else {
-                        result = eachTypeRelatedToType(source as UnionType, target, reportErrors);
-                    }
-
-                    if (result) {
+                    if (result = eachTypeRelatedToType(<UnionType>source, target, reportErrors)) {
                         return result;
                     }
                 }
                 else if (target.flags & TypeFlags.Intersection) {
-                    result = typeRelatedToEachType(source, target as IntersectionType, reportErrors);
-
-                    if (result) {
+                    if (result = typeRelatedToEachType(source, <IntersectionType>target, reportErrors)) {
                         return result;
                     }
                 }
                 else {
-                    // It is necessary to try these "some" checks on both sides because there may be nested "each" checks
+                    // It is necessary to try "some" checks on both sides because there may be nested "each" checks
                     // on either side that need to be prioritized. For example, A | B = (A | B) & (C | D) or
                     // A & B = (A & B) | (C & D).
                     if (source.flags & TypeFlags.Intersection) {
-                        // If target is a union type then the check following this one will report errors,
-                        // so we'll suppress any errors we could run into here.
-                        if (result = someTypeRelatedToType(source as IntersectionType, target, reportErrors && !(target.flags & TypeFlags.Union))) {
+                        // If target is a union type the following check will report errors so we suppress them here
+                        if (result = someTypeRelatedToType(<IntersectionType>source, target, reportErrors && !(target.flags & TypeFlags.Union))) {
                             return result;
                         }
                     }
                     if (target.flags & TypeFlags.Union) {
-                        if (result = typeRelatedToSomeType(source, target as UnionType, reportErrors)) {
+                        if (result = typeRelatedToSomeType(source, <UnionType>target, reportErrors)) {
                             return result;
                         }
                     }
@@ -4977,8 +4942,8 @@ namespace ts {
                 }
                 if (source.flags & TypeFlags.Union && target.flags & TypeFlags.Union ||
                     source.flags & TypeFlags.Intersection && target.flags & TypeFlags.Intersection) {
-                    if (result = eachTypeRelatedToSomeType(<UnionOrIntersectionType>source, <UnionOrIntersectionType>target, /*reportErrors*/ false)) {
-                        if (result &= eachTypeRelatedToSomeType(<UnionOrIntersectionType>target, <UnionOrIntersectionType>source, /*reportErrors*/ false)) {
+                    if (result = eachTypeRelatedToSomeType(<UnionOrIntersectionType>source, <UnionOrIntersectionType>target)) {
+                        if (result &= eachTypeRelatedToSomeType(<UnionOrIntersectionType>target, <UnionOrIntersectionType>source)) {
                             return result;
                         }
                     }
@@ -4993,7 +4958,7 @@ namespace ts {
             function isKnownProperty(type: Type, name: string): boolean {
                 if (type.flags & TypeFlags.ObjectType) {
                     const resolved = resolveStructuredTypeMembers(type);
-                    if (isAssignableOrComparableRelation && (type === globalObjectType || resolved.properties.length === 0) ||
+                    if (relation === assignableRelation && (type === globalObjectType || resolved.properties.length === 0) ||
                         resolved.stringIndexType || resolved.numberIndexType || getPropertyOfType(type, name)) {
                         return true;
                     }
@@ -5027,11 +4992,11 @@ namespace ts {
                 return false;
             }
 
-            function eachTypeRelatedToSomeType(source: UnionOrIntersectionType, target: UnionOrIntersectionType, reportErrors: boolean): Ternary {
+            function eachTypeRelatedToSomeType(source: UnionOrIntersectionType, target: UnionOrIntersectionType): Ternary {
                 let result = Ternary.True;
                 let sourceTypes = source.types;
                 for (let sourceType of sourceTypes) {
-                    let related = typeRelatedToSomeType(sourceType, target, reportErrors);
+                    let related = typeRelatedToSomeType(sourceType, target, false);
                     if (!related) {
                         return Ternary.False;
                     }
@@ -9416,10 +9381,8 @@ namespace ts {
             let targetType = getTypeFromTypeNode(node.type);
             if (produceDiagnostics && targetType !== unknownType) {
                 let widenedType = getWidenedType(exprType);
-
-                if (!isTypeComparableTo(targetType, widenedType)) {
-                    
-                    checkTypeComparableTo(exprType, targetType, node, Diagnostics.Type_0_cannot_be_converted_to_type_1);
+                if (!(isTypeAssignableTo(targetType, widenedType))) {
+                    checkTypeAssignableTo(exprType, targetType, node, Diagnostics.Neither_type_0_nor_type_1_is_assignable_to_the_other);
                 }
             }
             return targetType;
@@ -10262,7 +10225,7 @@ namespace ts {
                 case SyntaxKind.ExclamationEqualsToken:
                 case SyntaxKind.EqualsEqualsEqualsToken:
                 case SyntaxKind.ExclamationEqualsEqualsToken:
-                    if (!isTypeComparableTo(leftType, rightType) && !isTypeComparableTo(rightType, leftType)) {
+                    if (!isTypeAssignableTo(leftType, rightType) && !isTypeAssignableTo(rightType, leftType)) {
                         reportOperatorError();
                     }
                     return booleanType;
@@ -12726,13 +12689,12 @@ namespace ts {
 
                 if (produceDiagnostics && clause.kind === SyntaxKind.CaseClause) {
                     let caseClause = <CaseClause>clause;
-                    // TypeScript 1.0 spec (April 2014): 5.9
+                    // TypeScript 1.0 spec (April 2014):5.9
                     // In a 'switch' statement, each 'case' expression must be of a type that is assignable to or from the type of the 'switch' expression.
-                    // TODO (drosen): this needs to be amended to reflect the "comparable" relationship.
                     let caseType = checkExpression(caseClause.expression);
-
-                    if (!isTypeComparableTo(expressionType, caseType)) {
-                        checkTypeComparableTo(caseType, expressionType, caseClause.expression, /*headMessage*/ undefined);
+                    if (!isTypeAssignableTo(expressionType, caseType)) {
+                        // check 'expressionType isAssignableTo caseType' failed, try the reversed check and report errors if it fails
+                        checkTypeAssignableTo(caseType, expressionType, caseClause.expression, /*headMessage*/ undefined);
                     }
                 }
                 forEach(clause.statements, checkSourceElement);

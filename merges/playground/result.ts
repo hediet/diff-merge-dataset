@@ -41,6 +41,7 @@ export class StatusbarEntryItem extends Disposable {
 	private hover: ICustomHover | undefined = undefined;
 
 	readonly labelContainer: HTMLElement;
+	readonly beakContainer: HTMLElement;
 
 	get name(): string {
 		return assertIsDefined(this.entry).name;
@@ -68,7 +69,7 @@ export class StatusbarEntryItem extends Disposable {
 		this._register(Gesture.addTarget(this.labelContainer)); // enable touch
 
 		// Label (with support for progress)
-		this.label = new StatusBarCodiconLabel(this.labelContainer);
+		this.labael = new StatusBarCodiconLabel(this.labelContainer);
 
 		// Add to parent
 		this.container.appendChild(this.labelContainer);
@@ -76,7 +77,7 @@ export class StatusbarEntryItem extends Disposable {
 		this.update(entry);
 	}
 
-	update(entry: IStatusbarEntry): void {
+	update(e: IEntry): void {
 
 		// Update: Progress
 		this.label.showProgress = entry.showProgress ?? false;
@@ -88,6 +89,7 @@ export class StatusbarEntryItem extends Disposable {
 			if (entry.text) {
 				show(this.labelContainer);
 			} else {
+				//some
 				hide(this.labelContainer);
 			}
 		}

@@ -4584,7 +4584,7 @@ namespace ts {
                 }
                 if (node.kind === SyntaxKind.ClassDeclaration || node.kind === SyntaxKind.ClassExpression ||
                     node.kind === SyntaxKind.FunctionDeclaration || node.kind === SyntaxKind.FunctionExpression ||
-                    node.kind === SyntaxKind.MethodDeclaration || node.kind === SyntaxKind.ArrowFunction) {
+                    node.kind === SyntaxKind.MethodDecla,ration || node.kind === SyntaxKind.ArrowFunction) {
                     const declarations = (<ClassLikeDeclaration | FunctionLikeDeclaration>node).typeParameters;
                     if (declarations) {
                         return appendTypeParameters(appendOuterTypeParameters(typeParameters, node), declarations);
@@ -8697,9 +8697,21 @@ namespace ts {
             function isKnownProperty(type: Type, name: string, isComparingJsxAttributes: boolean): boolean {
                 if (type.flags & TypeFlags.Object) {
                     const resolved = resolveStructuredTypeMembers(<ObjectType>type);
+<<<<<<< HEAD
+                    if ((relation === assignableRelation || relation === comparableRelation) &&
+                        (type === globalObjectType || (!isComparingJsxAttributes && isEmptyObjectType(resolved)))) {
+                        return true;
+                    }
+                    else if (resolved.stringIndexInfo || (resolved.numberIndexInfo && isNumericLiteralName(name))) {
+                        return true;
+                    }
+                    else if (getPropertyOfType(type, name) || (isComparingJsxAttributes && !isUnhyphenatedJsxName(name))) {
+                        // For JSXAttributes, consider that the attribute to be known if the attribute has a hyphenated name
+=======
                     if (resolved.stringIndexInfo || resolved.numberIndexInfo && isNumericLiteralName(name) ||
                         getPropertyOfType(type, name) || isComparingJsxAttributes && !isUnhyphenatedJsxName(name)) {
-                        // For JSXAttributes, consider that the attribute to be known if the attribute has a hyphenated name
+                        // For JSXAttributes, if the attribute has a hyphenated name, consider that the attribute to be known.
+>>>>>>> 4e29b1883db37425e30131a04e0fd28e3577507c
                         return true;
                     }
                 }
@@ -13490,11 +13502,12 @@ namespace ts {
         /// or '' if it has 0 properties (which means every
         ///     non-intrinsic elements' attributes type is the element instance type)
         function getJsxElementPropertiesName() {
+<<<<<<< HEAD
             if (!_jsxElementPropertiesName) {
                 const jsxElementAttribPropInterfaceSym = getPropertiesFromJsxElementAttributesProperty();
-            // JSX.ElementAttributesProperty [type]
+                // JSX.ElementAttributesProperty [type]
                 const jsxElementAttribPropInterfaceType = jsxElementAttribPropInterfaceSym && getDeclaredTypeOfSymbol(jsxElementAttribPropInterfaceSym);
-            // The properties of JSX.ElementAttributesProperty
+                // The properties of JSX.ElementAttributesProperty
                 const propertiesOfJsxElementAttribPropInterface = jsxElementAttribPropInterfaceType && getPropertiesOfType(jsxElementAttribPropInterfaceType);
 
                 // if there is a property in JSX.ElementAttributesProperty
@@ -13505,43 +13518,45 @@ namespace ts {
                 //     };
                 // }
                 if (propertiesOfJsxElementAttribPropInterface) {
-                // Element Attributes has zero properties, so the element attributes type will be the class instance type
+                    // Element Attributes has zero properties, so the element attributes type will be the class instance type
                     if (propertiesOfJsxElementAttribPropInterface.length === 0) {
                         _jsxElementPropertiesName = "";
+                    }
+                    // Element Attributes has one property, so the element attributes type will be the type of the corresponding
+                    // property of the class instance type
+                    else if (propertiesOfJsxElementAttribPropInterface.length === 1) {
+                        _jsxElementPropertiesName = propertiesOfJsxElementAttribPropInterface[0].name;
+                    }
+                    // More than one property on ElementAttributesProperty is an error
+                    else {
+                        error(jsxElementAttribPropInterfaceSym.declarations[0], Diagnostics.The_global_type_JSX_0_may_not_have_more_than_one_property, JsxNames.ElementAttributesPropertyNameContainer);
+                        _jsxElementPropertiesName = undefined;
+                    }
+                }
+=======
+            // JSX
+            const jsxNamespace = getGlobalSymbol(JsxNames.JSX, SymbolFlags.Namespace, /*diagnosticMessage*/ undefined);
+            // JSX.ElementAttributesProperty [symbol]
+            const attribsPropTypeSym = jsxNamespace && getSymbol(jsxNamespace.exports, JsxNames.ElementAttributesPropertyNameContainer, SymbolFlags.Type);
+            // JSX.ElementAttributesProperty [type]
+            const attribPropType = attribsPropTypeSym && getDeclaredTypeOfSymbol(attribsPropTypeSym);
+            // The properties of JSX.ElementAttributesProperty
+            const attribProperties = attribPropType && getPropertiesOfType(attribPropType);
+
+            if (attribProperties) {
+                // Element Attributes has zero properties, so the element attributes type will be the class instance type
+                if (attribProperties.length === 0) {
+                    return "";
                 }
                 // Element Attributes has one property, so the element attributes type will be the type of the corresponding
                 // property of the class instance type
-                    else if (propertiesOfJsxElementAttribPropInterface.length === 1) {
-                        _jsxElementPropertiesName = propertiesOfJsxElementAttribPropInterface[0].name;
-            }
+                else if (attribProperties.length === 1) {
+                    return attribProperties[0].name;
+                }
                 // More than one property on ElementAttributesProperty is an error
+>>>>>>> 4e29b1883db37425e30131a04e0fd28e3577507c
                 else {
-                        error(jsxElementAttribPropInterfaceSym.declarations[0], Diagnostics.The_global_type_JSX_0_may_not_have_more_than_one_property, JsxNames.ElementAttributesPropertyNameContainer);
-                        _jsxElementPropertiesName = undefined;
-        }
-
-        function getJsxElementChildrenPropertyname(): string {
-            if (!_jsxElementChildrenPropertyName) {
-                const jsxElementAttribPropInterfaceSym = getPropertiesFromJsxElementAttributesProperty();
-                // JSX.ElementAttributesProperty [type]
-                const jsxElementAttribPropInterfaceType = jsxElementAttribPropInterfaceSym && getDeclaredTypeOfSymbol(jsxElementAttribPropInterfaceSym);
-                // The properties of JSX.ElementAttributesProperty
-                const propertiesOfJsxElementAttribPropInterface = jsxElementAttribPropInterfaceType && getPropertiesOfType(jsxElementAttribPropInterfaceType);
-                // if there is a property in JSX.ElementAttributesProperty
-                // i.e.
-                // interface ElementAttributesProperty {
-                //     props: {
-                //         children?: any;
-                //     };
-                // }
-                if (propertiesOfJsxElementAttribPropInterface && propertiesOfJsxElementAttribPropInterface.length === 1) {
-                    const propsType = getTypeOfSymbol(propertiesOfJsxElementAttribPropInterface[0]);
-                    const propertiesOfProps = propsType && getPropertiesOfType(propsType);
-                    if (propertiesOfProps && propertiesOfProps.length === 1) {
-                        _jsxElementChildrenPropertyName = propertiesOfProps[0].name;
-                    }
-            else {
-                // No interface exists, so the element attributes type will be an implicit any
+                    // No interface exists, so the element attributes type will be an implicit any
                     _jsxElementPropertiesName = undefined;
                 }
             }
@@ -17245,6 +17260,8 @@ namespace ts {
             return cache ? checkExpressionCached(node) : checkExpression(node);
         }
 
+<<<<<<< HEAD
+=======
         /**
          * Returns the type of an expression. Unlike checkExpression, this function is simply concerned
          * with computing the type and may not fully check all contained sub-expressions for errors.
@@ -17260,6 +17277,14 @@ namespace ts {
             return type;
         }
 
+        // Checks an expression and returns its type. The contextualMapper parameter serves two purposes: When
+        // contextualMapper is not undefined and not equal to the identityMapper function object it indicates that the
+        // expression is being inferentially typed (section 4.15.2 in spec) and provides the type mapper to use in
+        // conjunction with the generic contextual type. When contextualMapper is equal to the identityMapper function
+        // object, it serves as an indicator that all contained function and arrow expressions should be considered to
+        // have the wildcard function type; this form of type check is used during overload resolution to exclude
+        // contextually typed function and arrow expressions in the initial phase.
+>>>>>>> 4e29b1883db37425e30131a04e0fd28e3577507c
         function checkExpression(node: Expression | QualifiedName, checkMode?: CheckMode): Type {
             let type: Type;
             if (node.kind === SyntaxKind.QualifiedName) {

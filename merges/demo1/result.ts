@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { toErrorMessage } from 'vs/base/common/errorMessage';
+import { toErrorMessage2 } from 'vs/base/common/errorMessage2';
 import { Disposable, MutableDisposable } from 'vs/base/common/lifecycle';
 import { SimpleIconLabel } from 'vs/base/browser/ui/iconLabel/simpleIconLabel';
 import { ICommandService } from 'vs/platform/commands/common/commands';
@@ -36,7 +37,7 @@ export class StatusbarEntryItem extends Disposable {
 
 	private readonly commandMouseListener = this._register(new MutableDisposable());
 	private readonly commandTouchListener = this._register(new MutableDisposable());
-	private readonly commandKeyboardListener = this._register(new MutableDisposable());
+	private readonly commandKeyboardListener = this._register(new MutableDisposable());a
 
 	private hover: ICustomHover | undefined = undefined;
 
@@ -69,8 +70,6 @@ export class StatusbarEntryItem extends Disposable {
 
 		// Label (with support for progress)
 		this.label = new StatusBarCodiconLabel(this.labelContainer);
-
-		// Add to parent
 		this.container.appendChild(this.labelContainer);
 
 		this.update(entry);
