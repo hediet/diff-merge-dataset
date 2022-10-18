@@ -211,16 +211,9 @@ namespace ts {
             Element: "Element"
         };
 
-<<<<<<< HEAD
         let subtypeRelation: Map<RelationComparisonResult> = {};
         let assignableRelation: Map<RelationComparisonResult> = {};
-        let comparableRelation: Map<RelationComparisonResult> = {};
         let identityRelation: Map<RelationComparisonResult> = {};
-=======
-        const subtypeRelation: Map<RelationComparisonResult> = {};
-        const assignableRelation: Map<RelationComparisonResult> = {};
-        const identityRelation: Map<RelationComparisonResult> = {};
->>>>>>> 12c6a7400dffc10c41f9245da64fbd5beeceb3dc
 
         // This is for caching the result of getSymbolDisplayBuilder. Do not access directly.
         let _displayBuilder: SymbolDisplayBuilder;
@@ -4121,12 +4114,12 @@ namespace ts {
                 // We only support expressions that are simple qualified names. For other expressions this produces undefined.
                 const typeNameOrExpression = node.kind === SyntaxKind.TypeReference ? (<TypeReferenceNode>node).typeName :
                     isSupportedExpressionWithTypeArguments(<ExpressionWithTypeArguments>node) ? (<ExpressionWithTypeArguments>node).expression :
-                        undefined;
+                    undefined;
                 const symbol = typeNameOrExpression && resolveEntityName(typeNameOrExpression, SymbolFlags.Type) || unknownSymbol;
                 const type = symbol === unknownSymbol ? unknownType :
                     symbol.flags & (SymbolFlags.Class | SymbolFlags.Interface) ? getTypeFromClassOrInterfaceReference(node, symbol) :
-                        symbol.flags & SymbolFlags.TypeAlias ? getTypeFromTypeAliasReference(node, symbol) :
-                            getTypeFromNonGenericTypeReference(node, symbol);
+                    symbol.flags & SymbolFlags.TypeAlias ? getTypeFromTypeAliasReference(node, symbol) :
+                    getTypeFromNonGenericTypeReference(node, symbol);
                 // Cache both the resolved symbol and the resolved type. The resolved symbol is needed in when we check the
                 // type reference in checkTypeReferenceOrExpressionWithTypeArguments.
                 links.resolvedSymbol = symbol;
@@ -4807,12 +4800,7 @@ namespace ts {
 
             Debug.assert(relation !== identityRelation || !errorNode, "no error reporting in identity checking");
 
-<<<<<<< HEAD
-            const isAssignableOrComparableRelation = relation === assignableRelation || relation === comparableRelation;
             let result = isRelatedTo(source, target, errorNode !== undefined, headMessage);
-=======
-            const result = isRelatedTo(source, target, errorNode !== undefined, headMessage);
->>>>>>> 12c6a7400dffc10c41f9245da64fbd5beeceb3dc
             if (overflow) {
                 error(errorNode, Diagnostics.Excessive_stack_depth_comparing_types_0_and_1, typeToString(source), typeToString(target));
             }
@@ -5042,15 +5030,9 @@ namespace ts {
 
             function eachTypeRelatedToSomeType(source: UnionOrIntersectionType, target: UnionOrIntersectionType, reportErrors: boolean): Ternary {
                 let result = Ternary.True;
-<<<<<<< HEAD
                 let sourceTypes = source.types;
                 for (let sourceType of sourceTypes) {
-                    let related = typeRelatedToSomeType(sourceType, target, reportErrors);
-=======
-                const sourceTypes = source.types;
-                for (const sourceType of sourceTypes) {
-                    const related = typeRelatedToSomeType(sourceType, target, false);
->>>>>>> 12c6a7400dffc10c41f9245da64fbd5beeceb3dc
+                    let related = typeRelatedToSomeType(sourceType, target, false);
                     if (!related) {
                         return Ternary.False;
                     }
@@ -9441,16 +9423,9 @@ namespace ts {
             const exprType = getRegularTypeOfObjectLiteral(checkExpression(node.expression));
             const targetType = getTypeFromTypeNode(node.type);
             if (produceDiagnostics && targetType !== unknownType) {
-<<<<<<< HEAD
                 let widenedType = getWidenedType(exprType);
-
-                if (!isTypeComparableTo(targetType, widenedType)) {
-                    checkTypeComparableTo(exprType, targetType, node, Diagnostics.Type_0_cannot_be_converted_to_type_1);
-=======
-                const widenedType = getWidenedType(exprType);
                 if (!(isTypeAssignableTo(targetType, widenedType))) {
                     checkTypeAssignableTo(exprType, targetType, node, Diagnostics.Neither_type_0_nor_type_1_is_assignable_to_the_other);
->>>>>>> 12c6a7400dffc10c41f9245da64fbd5beeceb3dc
                 }
             }
             return targetType;
@@ -11336,7 +11311,7 @@ namespace ts {
 
             // Abstract methods can't have an implementation -- in particular, they don't need one.
             if (!isExportSymbolInsideModule && lastSeenNonAmbientDeclaration && !lastSeenNonAmbientDeclaration.body &&
-                !(lastSeenNonAmbientDeclaration.flags & NodeFlags.Abstract)) {
+                !(lastSeenNonAmbientDeclaration.flags & NodeFlags.Abstract) ) {
                 reportImplementationExpectedError(lastSeenNonAmbientDeclaration);
             }
 
@@ -12757,24 +12732,13 @@ namespace ts {
                 }
 
                 if (produceDiagnostics && clause.kind === SyntaxKind.CaseClause) {
-<<<<<<< HEAD
                     let caseClause = <CaseClause>clause;
-                    // TypeScript 1.0 spec (April 2014): 5.9
-                    // In a 'switch' statement, each 'case' expression must be of a type that is assignable to or from the type of the 'switch' expression.
-                    // TODO (drosen): this needs to be amended to reflect the "comparable" relationship.
-                    let caseType = checkExpression(caseClause.expression);
-
-                    if (!isTypeComparableTo(expressionType, caseType)) {
-                        checkTypeComparableTo(caseType, expressionType, caseClause.expression, /*headMessage*/ undefined);
-=======
-                    const caseClause = <CaseClause>clause;
                     // TypeScript 1.0 spec (April 2014):5.9
                     // In a 'switch' statement, each 'case' expression must be of a type that is assignable to or from the type of the 'switch' expression.
-                    const caseType = checkExpression(caseClause.expression);
+                    let caseType = checkExpression(caseClause.expression);
                     if (!isTypeAssignableTo(expressionType, caseType)) {
                         // check 'expressionType isAssignableTo caseType' failed, try the reversed check and report errors if it fails
                         checkTypeAssignableTo(caseType, expressionType, caseClause.expression, /*headMessage*/ undefined);
->>>>>>> 12c6a7400dffc10c41f9245da64fbd5beeceb3dc
                     }
                 }
                 forEach(clause.statements, checkSourceElement);
@@ -14259,8 +14223,8 @@ namespace ts {
                             if (className) {
                                 copySymbol(location.symbol, meaning);
                             }
-                        // fall through; this fall-through is necessary because we would like to handle
-                        // type parameter inside class expression similar to how we handle it in classDeclaration and interface Declaration
+                            // fall through; this fall-through is necessary because we would like to handle
+                            // type parameter inside class expression similar to how we handle it in classDeclaration and interface Declaration
                         case SyntaxKind.ClassDeclaration:
                         case SyntaxKind.InterfaceDeclaration:
                             // If we didn't come from static member of class or interface,
@@ -14416,8 +14380,8 @@ namespace ts {
                 return resolveEntityName(<EntityName>entityName, meaning);
             }
             else if ((entityName.parent.kind === SyntaxKind.JsxOpeningElement) ||
-                (entityName.parent.kind === SyntaxKind.JsxSelfClosingElement) ||
-                (entityName.parent.kind === SyntaxKind.JsxClosingElement)) {
+                     (entityName.parent.kind === SyntaxKind.JsxSelfClosingElement) ||
+                     (entityName.parent.kind === SyntaxKind.JsxClosingElement)) {
                 return getJsxElementTagSymbol(<JsxOpeningLikeElement>entityName.parent);
             }
             else if (isExpression(entityName)) {
@@ -14484,8 +14448,8 @@ namespace ts {
                         : getSymbolOfPartOfRightHandSideOfImportEquals(<Identifier>node);
                 }
                 else if (node.parent.kind === SyntaxKind.BindingElement &&
-                    node.parent.parent.kind === SyntaxKind.ObjectBindingPattern &&
-                    node === (<BindingElement>node.parent).propertyName) {
+                        node.parent.parent.kind === SyntaxKind.ObjectBindingPattern &&
+                        node === (<BindingElement>node.parent).propertyName) {
                     const typeOfPattern = getTypeOfNode(node.parent.parent);
                     const propertyDeclaration = typeOfPattern && getPropertyOfType(typeOfPattern, (<Identifier>node).text);
 
@@ -14522,7 +14486,7 @@ namespace ts {
                             (<ImportDeclaration>node.parent).moduleSpecifier === node)) {
                         return resolveExternalModuleName(node, <LiteralExpression>node);
                     }
-                // Fall through
+                    // Fall through
 
                 case SyntaxKind.NumericLiteral:
                     // index access
@@ -14718,7 +14682,7 @@ namespace ts {
                 if (links.isNestedRedeclaration === undefined) {
                     const container = getEnclosingBlockScopeContainer(symbol.valueDeclaration);
                     links.isNestedRedeclaration = isStatementWithLocals(container) &&
-                        !!resolveName(container.parent, symbol.name, SymbolFlags.Value, /*nameNotFoundMessage*/ undefined, /*nameArg*/ undefined);
+                    !!resolveName(container.parent, symbol.name, SymbolFlags.Value, /*nameNotFoundMessage*/ undefined, /*nameArg*/ undefined);
                 }
                 return links.isNestedRedeclaration;
             }

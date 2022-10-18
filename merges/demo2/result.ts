@@ -10,6 +10,7 @@ import { once as onceFn } from 'vs/base/common/functional';
 import { combinedDisposable, Disposable, DisposableStore, IDisposable, SafeDisposable, toDisposable } from 'vs/base/common/lifecycle';
 import { LinkedList } from 'vs/base/common/linkedList';
 import { StopWatch } from 'vs/base/common/stopwatch';
+import { Log } from 'vs/base/common/log';
 
 
 // -----------------------------------------------------------------------------------------------------------------------

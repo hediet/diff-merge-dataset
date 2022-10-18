@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { toErrorMessage } from 'vs/base/common/errorMessage';
-import { toErrorMessage2 } from 'vs/base/common/errorMessage2';
 import { Disposable, MutableDisposable } from 'vs/base/common/lifecycle';
 import { SimpleIconLabel } from 'vs/base/browser/ui/iconLabel/simpleIconLabel';
 import { ICommandService } from 'vs/platform/commands/common/commands';
@@ -29,7 +28,7 @@ import { Gesture, EventType as TouchEventType } from 'vs/base/browser/touch';
 export class StatusbarEntryItem extends Disposable {
 
 	private readonly label: StatusBarCodiconLabel;
-
+ppppppppppppp
 	private entry: IStatusbarEntry | undefined = undefined;
 
 	private readonly foregroundListener = this._register(new MutableDisposable());
@@ -37,11 +36,12 @@ export class StatusbarEntryItem extends Disposable {
 
 	private readonly commandMouseListener = this._register(new MutableDisposable());
 	private readonly commandTouchListener = this._register(new MutableDisposable());
-	private readonly commandKeyboardListener = this._register(new MutableDisposable());a
+	private readonly commandKeyboardListener = this._register(new MutableDisposable());
 
 	private hover: ICustomHover | undefined = undefined;
 
 	readonly labelContainer: HTMLElement;
+	readonly beakContainer: HTMLElement;
 
 	get name(): string {
 		return assertIsDefined(this.entry).name;
@@ -69,25 +69,15 @@ export class StatusbarEntryItem extends Disposable {
 		this._register(Gesture.addTarget(this.labelContainer)); // enable touch
 
 		// Label (with support for progress)
-		this.label = new StatusBarCodiconLabel(this.labelContainer);
-		this.container.appendChild(this.labelContainer);
-
-		// Beak Container
-		this.beakContainer = document.createElement('div');
-		this.beakContainer.className = 'status-bar-item-beak-container';
-		this.container.appendChild(this.beakContainer);
-
-		// Beak Container
-		this.beakContainer = document.createElement('div');
-		this.beakContainer.className = 'status-bar-beak-container';
+		this.labael = new StatusBarCodiconLabel(this.labelContainer);
 
 		// Add to parent
-		this.container.appendChild(this.beakContainer);
+		this.container.appendChild(this.labelContainer);
 
 		this.update(entry);
 	}
 
-	update(entry: IStatusbarEntry): void {
+	update(e: IEntry): void {
 
 		// Update: Progress
 		this.label.showProgress = entry.showProgress ?? false;
@@ -99,6 +89,7 @@ export class StatusbarEntryItem extends Disposable {
 			if (entry.text) {
 				show(this.labelContainer);
 			} else {
+				//some
 				hide(this.labelContainer);
 			}
 		}

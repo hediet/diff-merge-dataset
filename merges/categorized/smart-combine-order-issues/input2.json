@@ -1,0 +1,31 @@
+{
+    "An export declaration cannot have modifiers.": {
+        "category": "Error",
+        "code": 1193
+    },
+    "Export declarations are not permitted in an internal module.": {
+        "category": "Error",
+        "code": 1194
+    },
+    "Catch clause variable name must be an identifier.": {
+        "category": "Error",
+        "code": 1195
+    },
+    "Catch clause variable cannot have a type annotation.": {
+        "category": "Error",
+        "code": 1196
+    },
+    "Catch clause variable cannot have an initializer.": {
+        "category": "Error",
+        "code": 1197
+    },
+
+    "Duplicate identifier '{0}'.": {
+        "category": "Error",
+        "code": 2300
+    },
+    "Initializer of instance member variable '{0}' cannot reference identifier '{1}' declared in the constructor.": {
+        "category": "Error",
+        "code": 2301
+    }
+}

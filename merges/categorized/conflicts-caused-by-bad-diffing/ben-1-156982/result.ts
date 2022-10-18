@@ -42,11 +42,8 @@ import { Color } from 'vs/base/common/color';
 import { IPolicyService } from 'vs/platform/policy/common/policy';
 import { IUserDataProfile, IUserDataProfilesService } from 'vs/platform/userDataProfile/common/userDataProfile';
 import { revive } from 'vs/base/common/marshalling';
-<<<<<<< .\input1.ts
 import product from 'vs/platform/product/common/product';
-=======
 import { StorageScope, StorageTarget } from 'vs/platform/storage/common/storage';
->>>>>>> .\input2.ts
 
 export interface IWindowCreationOptions {
 	state: IWindowState;

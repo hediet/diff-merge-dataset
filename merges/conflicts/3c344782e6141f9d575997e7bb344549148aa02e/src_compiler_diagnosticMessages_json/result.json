@@ -599,30 +599,7 @@
         "category": "Error",
         "code": 1194
     },
-<<<<<<< HEAD
-    "An extended Unicode escape value must be between 0x0 and 0x10FFFF inclusive.": {
-        "category": "Error",
-        "code": 1195
-    },
-    "'}' expected.": {
-        "category": "Error",
-        "code":  1196
-    },
-=======
-    "Catch clause variable name must be an identifier.": {
-        "category": "Error",
-        "code": 1195
-    },
-    "Catch clause variable cannot have a type annotation.": {
-        "category": "Error",
-        "code": 1196
-    },
-    "Catch clause variable cannot have an initializer.": {
-        "category": "Error",
-        "code": 1197
-    },
 
->>>>>>> f4158eecf4344bfb26838d777fda762d867aaf20
     "Duplicate identifier '{0}'.": {
         "category": "Error",
         "code": 2300

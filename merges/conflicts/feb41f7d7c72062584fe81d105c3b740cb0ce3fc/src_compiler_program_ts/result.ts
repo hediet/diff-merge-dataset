@@ -1300,13 +1300,8 @@ namespace ts {
                 }
             }
 
-<<<<<<< HEAD
-            function collectDynamicImportOrRequireCalls(node: Node): void {
-                if (isRequireCall(node, /*checkArgumentIsStringLiteral*/true)) {
-=======
             function collectRequireCalls(node: Node): void {
-                if (isRequireCall(node, /*checkArgumentIsStringLiteral*/ true)) {
->>>>>>> 88ac7dfdc7aac9614e94415eccabf77596daaddc
+                if (isRequireCall(node, /*checkArgumentIsStringLiteral*/true)) {
                     (imports || (imports = [])).push(<StringLiteral>(<CallExpression>node).arguments[0]);
                 }
                 // we have to check the argument list has length of 1. We will still have to process these even though we have parsing error.
