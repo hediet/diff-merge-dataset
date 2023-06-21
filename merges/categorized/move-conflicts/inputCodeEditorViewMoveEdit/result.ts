@@ -28,7 +28,7 @@ import { InputState, ModifiedBaseRangeState } from 'vs/workbench/contrib/mergeEd
 import { applyObservableDecorations, setFields } from 'vs/workbench/contrib/mergeEditor/browser/utils';
 import { handledConflictMinimapOverViewRulerColor, unhandledConflictMinimapOverViewRulerColor } from 'vs/workbench/contrib/mergeEditor/browser/view/colors';
 import { EditorGutter, IGutterItemInfo, IGutterItemView } from '../editorGutter';
-import { CodeEditorView, createSelectionsAutorun, TitleMenu } from './codeEditorView';
+import { CodeEditorView } from './codeEditorView';
 
 export class InputCodeEditorView extends CodeEditorView {
 	constructor(
@@ -218,7 +218,12 @@ export class InputCodeEditorView extends CodeEditorView {
 			}));
 	});
 
-<<<<<<< Updated upstream
+	private readonly decorations = derived(`input${this.inputNumber}.decorations`, reader => {
+		const viewModel = this.viewModel.read(reader);
+		if (!viewModel) {
+			return [];
+		}
+		const model = viewModel.model;
 	constructor(
 		public readonly inputNumber: 1 | 2,
 		@IInstantiationService instantiationService: IInstantiationService,
@@ -228,29 +233,11 @@ export class InputCodeEditorView extends CodeEditorView {
 		@IContextKeyService contextKeyService: IContextKeyService,
 	) {
 		super(instantiationService);
-=======
-	private readonly decorations = derived(`input${this.inputNumber}.decorations`, reader => {
-		const viewModel = this.viewModel.read(reader);
-		if (!viewModel) {
-			return [];
-		}
-		const model = viewModel.model;
->>>>>>> Stashed changes
 
 		const activeModifiedBaseRange = viewModel.activeModifiedBaseRange.read(reader);
 
 		const result = new Array<IModelDeltaDecoration>();
 
-<<<<<<< Updated upstream
-		this._register(
-			instantiationService.createInstance(
-				TitleMenu,
-				inputNumber === 1 ? MenuId.MergeInput1Toolbar : MenuId.MergeInput2Toolbar,
-				this.htmlElements.title
-			)
-		);
-	}
-=======
 		for (const modifiedBaseRange of model.modifiedBaseRanges.read(reader)) {
 
 			const range = modifiedBaseRange.getInputRange(this.inputNumber);
@@ -286,20 +273,19 @@ export class InputCodeEditorView extends CodeEditorView {
 					}
 				});
 
-				if (modifiedBaseRange.isConflicting || !model.isHandled(modifiedBaseRange).read(reader)) {
-					const inputDiffs = modifiedBaseRange.getInputDiffs(this.inputNumber);
-					for (const diff of inputDiffs) {
-						const range = diff.outputRange.toInclusiveRange();
-						if (range) {
-							result.push({
-								range,
-								options: {
-									className: `merge-editor-diff ${inputClassName}`,
-									description: 'Merge Editor',
-									isWholeLine: true,
-								}
-							});
-						}
+		// title menu
+		const titleMenu = menuService.createMenu(titleMenuId, contextKeyService);
+		const toolBar = new ToolBar(this.htmlElements.toolbar, contextMenuService);
+		const toolBarUpdate = () => {
+			const secondary: IAction[] = [];
+			createAndFillInActionBarActions(titleMenu, { renderShortTitle: true }, secondary);
+			toolBar.setActions([], secondary);
+		};
+		this._store.add(toolBar);
+		this._store.add(titleMenu);
+		this._store.add(titleMenu.onDidChange(toolBarUpdate));
+		toolBarUpdate();
+	}
 
 						if (diff.rangeMappings) {
 							for (const d of diff.rangeMappings) {
@@ -318,7 +304,6 @@ export class InputCodeEditorView extends CodeEditorView {
 		}
 		return result;
 	});
->>>>>>> Stashed changes
 
 	protected override getEditorContributions(): IEditorContributionDescription[] | undefined {
 		return EditorExtensionsRegistry.getEditorContributions().filter(c => c.id !== CodeLensContribution.ID);

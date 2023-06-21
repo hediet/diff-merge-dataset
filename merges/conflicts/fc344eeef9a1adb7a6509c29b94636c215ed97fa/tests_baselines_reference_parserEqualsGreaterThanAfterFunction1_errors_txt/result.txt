@@ -1,6 +1,0 @@
-==== tests/cases/conformance/parser/ecmascript5/ErrorRecovery/parserEqualsGreaterThanAfterFunction1.ts (2 errors) ====
-    function =>
-             ~~
-!!! Identifier expected.
-            
-!!! Function implementation is missing or not immediately following the declaration.

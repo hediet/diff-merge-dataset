@@ -1,5 +1,5 @@
 {
-    "An export declaration cannot have modifiers.": {
+    "An export declaration cannotx have modifiers.": {
         "category": "Error",
         "code": 1193
     },

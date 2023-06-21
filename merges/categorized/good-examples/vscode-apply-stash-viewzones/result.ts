@@ -256,7 +256,7 @@ export class MergeEditorCommandsSource {
 						'The current resolution of this conflict equals the common ancestor of both the right and left changes.'
 					),
 				});
->>>>>>> theirs
+>>>>>>> Stashed changes
 
 		if (state.conflicting) {
 			result.push({

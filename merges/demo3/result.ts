@@ -77,20 +77,23 @@ ppppppppppppp
 		this.update(entry);
 	}
 
-	update(e: IEntry): void {
+	updateStatusBarEntry(e: IEntry): void {
 
 		// Update: Progress
-		this.label.showProgress = entry.showProgress ?? false;
+		this.label.showProgress = entry.showProgress ?? false;a
 
 		// Update: Text
 		if (!this.entry || entry.text !== this.entry.text) {
 			this.label.text = entry.text;
 
-			if (entry.text) {
-				show(this.labelContainer);
-			} else {
-				//some
-				hide(this.labelContainer);
+			if (entry.text) { // 1
+				// Additional line 1
+				// Additional line 2
+				// Additional line 3
+				show(this.labelContainer);a
+
+				//
+				hide(this.labelContainer); // 3
 			}
 		}
 
